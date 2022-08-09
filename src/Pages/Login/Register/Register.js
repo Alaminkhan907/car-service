@@ -5,6 +5,8 @@ import './Register.css';
 import auth from '../../../firebase.init';
 import SocialLogin from '../SocialLogin/SocialLogin';
 import { useState } from 'react';
+import Loading from '../../Shared/Loading/Loading';
+import PageTitle from '../../Shared/PageTitle/PageTitle';
 
 
 const Register = () => {
@@ -22,25 +24,28 @@ const Register = () => {
     const navigateLogin = () => {
         navigate('/login');
     }
+    if(loading || updating){
+        return <Loading></Loading>
+      }
 
     if (user) {
        console.log(user);
     }
-
     const handleRegister = async (event) => {
         event.preventDefault();
         const name = event.target.name.value;
         const email = event.target.email.value;
         const password = event.target.password.value;
         // const agree = event.target.terms.checked;
-        
+
         await createUserWithEmailAndPassword(email, password);
-        await updateProfile({ displayName:name});
+        await updateProfile({ displayName: name });
+        console.log('Updated profile');
         navigate('/home');
     }
-
     return (
         <div className='register-form'>
+            <PageTitle title="Register"></PageTitle>
             <h2 style={{ textAlign: 'center' }}>Please Register</h2>
             <form onSubmit={handleRegister}>
                 <input type="text" name="name" id="" placeholder='Your Name' />

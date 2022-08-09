@@ -5,7 +5,11 @@ import Form from 'react-bootstrap/Form';
 import { useSendPasswordResetEmail, useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../../firebase.init';
+import Loading from '../../Shared/Loading/Loading';
 import SocialLogin from '../SocialLogin/SocialLogin';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import PageTitle from '../../Shared/PageTitle/PageTitle';
 
 const Login = () => {
   const emailRef = useRef('');
@@ -24,6 +28,9 @@ const Login = () => {
   ] = useSignInWithEmailAndPassword(auth);
 
   const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
+  if (loading) {
+    return <Loading></Loading>
+  }
 
   if (user) {
     navigate(from, { replace: true });
@@ -45,11 +52,17 @@ const Login = () => {
   }
   const resetPassword = async () => {
     const email = emailRef.current.value;
-    await sendPasswordResetEmail(email);
-    alert('Sent email');
+    if (email) {
+      await sendPasswordResetEmail(email);
+      toast('Sent email');
+    }
+    else{
+      toast('Please enter your email address');
+    }
   }
   return (
     <div className='container w-50 mx-auto'>
+      <PageTitle title="Login"></PageTitle>
       <h1 className='text-primary text-center mt-2'>Please Login</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -64,8 +77,9 @@ const Login = () => {
       </Form>
       {errorElement}
       <p>New to Car service? <Link to='/register' className='text-primary text-decoration-none' onClick={navigateRegister}>Please register</Link></p>
-      <p>Forget password ? <Link to='/register' className='text-primary text-decoration-none' onClick={resetPassword}>Reset password</Link></p>
+      <p>Forget password ? <button button className='btn btn-link text-primary text-decoration-none' onClick={resetPassword}>Reset password</button></p>
       <SocialLogin></SocialLogin>
+      <ToastContainer />
     </div>
   )
 }
