@@ -2,21 +2,22 @@ import React from 'react'
 import useServices from '../../Hooks/UseServices'
 
 const ManageServices = () => {
-    const [services] = useServices();
+    const [services ,setServices] = useServices();
     const handleDelete = id =>{
         const proceed  = window.confirm('Are you sure');
 
         if(proceed){
-            const url = `http://localhost:3000/manage${id}`;
+            const url = `http://localhost:8000/service/${id}`;
             fetch(url , {
                 method:'DELETE'
             })
             .then(res=>res.json())
             .then(data =>{
                 console.log(data);
+                const remaining = services.filter(service => service._id !==id );
+                setServices(remaining);
             })
         }
-
     }
   return (
     <div className='w-50 mx-auto'>
