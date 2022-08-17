@@ -10,7 +10,7 @@ import SocialLogin from '../SocialLogin/SocialLogin';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PageTitle from '../../Shared/PageTitle/PageTitle';
-import axios from 'axios';
+import useToken from '../../../Hooks/useToken';
 
 const Login = () => {
   const emailRef = useRef('');
@@ -29,11 +29,13 @@ const Login = () => {
   ] = useSignInWithEmailAndPassword(auth);
 
   const [sendPasswordResetEmail, sending] = useSendPasswordResetEmail(auth);
-  if (loading) {
+  const [token]= useToken(user);
+  console.log(user)
+  if (loading || sending) {
     return <Loading></Loading>
   }
 
-  if (user) {
+  if (token) {
     navigate(from, { replace: true });
   }
   if (error) {
@@ -47,10 +49,7 @@ const Login = () => {
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
     await signInWithEmailAndPassword(email, password);
-    const {data} = await axios.post('http://localhost:8000/login',{email});
-    console.log(data);
-    localStorage.setItem('accessToken',data.accessToken);
-    navigate(from, { replace: true });
+   
   }
   const navigateRegister = event => {
     navigate('/register');

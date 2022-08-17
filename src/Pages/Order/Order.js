@@ -10,13 +10,14 @@ import axiosPrivate from '../../Api/AxiosPrivate';
 
 const Order = () => {
     const [user]= useAuthState(auth)
-    const [order, setOrder] = useState([]);
+    const [orders, setOrder] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
         const getOrders = async () => {
-            const email =user.email;
-            const url = `http://localhost:8000/order?email=${email}`;
+            const email =user?.email;
+            console.log(email);
+            const url = `https://warm-chamber-50271.herokuapp.com/order?email=${email}`;
             try{
                 const { data } = await axiosPrivate.get(url);
                 setOrder(data);
@@ -32,10 +33,15 @@ const Order = () => {
         getOrders();
     }, [navigate, user])
     return (
-        <div>
-            <h2>Your orders :{order.length}</h2>
-        </div>
-    )
-}
+        <div className='w-50 mx-auto'>
+        <h2>Your orders: {orders.length}</h2>
+        {
+            orders.map(order =><div key={order._id}>
+                <p>{order.email} : {order.service}</p>
+            </div>)
+        }
+    </div>
+);
+};
 
-export default Order
+export default Order;

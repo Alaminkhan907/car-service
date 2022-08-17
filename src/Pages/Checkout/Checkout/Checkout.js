@@ -23,7 +23,7 @@ const Checkout = () => {
       phone: event.target.phone.value,
 
     }
-    axios.post('http://localhost:8000/order', order)
+    axios.post('https://warm-chamber-50271.herokuapp.com/order', order)
       .then(response => {
         const {data} = response;
         if(data.insertedId){

@@ -6,7 +6,7 @@ const AddService = () => {
     
     const onSubmit = data => {
         console.log(data)
-        const url = `http://localhost:8000/service`;
+        const url = `https://warm-chamber-50271.herokuapp.com/service`;
         fetch(url , {
             method:'POST',
             headers:{

@@ -4,7 +4,7 @@ const useServiceDetail = serviceId =>{
     const [service, setServices] = useState({});
 
   useEffect(() => {
-    const url = `http://localhost:8000/service/${serviceId}`;
+    const url = `https://warm-chamber-50271.herokuapp.com/service/${serviceId}`;
 
     fetch(url)
     .then(res=> res.json())
