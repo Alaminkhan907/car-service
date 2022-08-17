@@ -1,16 +1,18 @@
 import React from 'react'
 import { useState } from 'react';
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import useServiceDetail from '../../../Hooks/useServiceDetails';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../../firebase.init';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
+
 const Checkout = () => {
   const { serviceId } = useParams();
   const [service] = useServiceDetail(serviceId);
   const [user] = useAuthState(auth);
+  const navigate = useNavigate();
 
   const handlePlaceOrder = event => {
     event.preventDefault();
@@ -29,6 +31,7 @@ const Checkout = () => {
         if(data.insertedId){
           toast('Your order is booked');
           event.target.reset();
+          navigate('/orders');
         }
       })
   }

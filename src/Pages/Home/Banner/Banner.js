@@ -19,8 +19,8 @@ const Banner = () => {
                     alt="First slide"
                 />
                 <Carousel.Caption>
-                    <h3>First slide label</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                    <h3>Check Engine</h3>
+                    <p>Check engine every month before malfunction on road </p>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -31,8 +31,8 @@ const Banner = () => {
                 />
 
                 <Carousel.Caption>
-                    <h3>Second slide label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <h3>Prevent unpleasant noise</h3>
+                    <p>Need to diagnosis unpleasant noise before causing heavy damage </p>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -43,10 +43,8 @@ const Banner = () => {
                 />
 
                 <Carousel.Caption>
-                    <h3>Third slide label</h3>
-                    <p>
-                        Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                    </p>
+                    <h3>Need to work on major structural changes</h3>
+                    <p>all type of car body we can replace by accident damage or regular changes with original manufacturer parts</p>
                 </Carousel.Caption>
             </Carousel.Item>
         </Carousel>

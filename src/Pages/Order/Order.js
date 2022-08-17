@@ -16,7 +16,6 @@ const Order = () => {
     useEffect(() => {
         const getOrders = async () => {
             const email =user?.email;
-            console.log(email);
             const url = `https://warm-chamber-50271.herokuapp.com/order?email=${email}`;
             try{
                 const { data } = await axiosPrivate.get(url);
